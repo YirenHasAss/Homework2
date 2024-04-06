@@ -112,5 +112,5 @@ if pair_change[0] == current_token:
 elif pair_change[1] == current_token:
     liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
     next_token = pair_change[0]
-
+    
 print("path: tokenB->tokenA->tokenD->tokenC->tokenB, tokenB balance=20.129889")

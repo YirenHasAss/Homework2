@@ -82,6 +82,16 @@ contract Arbitrage is Test {
         /**
          * Please add your solution above
          */
+        address[] memory path = new address[](5); // Initialize an array with a length of 2
+        path[0] = address(tokenB); // TokenB
+        path[1] = address(tokenA); // TokenA
+        path[2] = address(tokenD); // TokenD
+        path[3] = address(tokenC); // TokenC
+        path[4] = address(tokenB);
+        // Calculate deadline (10 minutes from now)
+        uint256 DEADLINE_FROM_NOW = 600;
+        uint256 deadline = block.timestamp + DEADLINE_FROM_NOW;
+        router.swapExactTokensForTokens( 5 ether, 15 ether, path, address(arbitrager), deadline);
         uint256 tokensAfter = tokenB.balanceOf(arbitrager);
         assertGt(tokensAfter, 20 ether);
         console.log("After Arbitrage tokenB Balance: %s", tokensAfter);
