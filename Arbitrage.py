@@ -45,6 +45,29 @@ if pair_change[0] == current_token:
 elif pair_change[1] == current_token:
     liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
     next_token = pair_change[0]
+print(current_token,":", balance ,"->", next_token, ":" ,max_trade)
+balance = max_trade
+max_trade = 0
+last_token = current_token
+current_token = next_token
+for pair in liquidity:
+    if (current_token == pair[0]) and (last_token!=pair[1]) :
+        amount_out = get_amount_out(balance, liquidity[pair][0], liquidity[pair][1])
+        if amount_out > max_trade:
+            max_trade = amount_out
+            pair_change = pair
+    elif (next_token == pair[1]) and (last_token!=pair[0]):
+        amount_out = get_amount_out(balance, liquidity[pair][1], liquidity[pair][0])
+        if amount_out > max_trade:
+            max_trade = amount_out
+            pair_change = pair
+if pair_change[0] == current_token:
+    liquidity[pair_change] = (liquidity[pair_change][0] + balance, liquidity[pair_change][1] - max_trade)
+    next_token = pair_change[1]
+elif pair_change[1] == current_token:
+    liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
+    next_token = pair_change[0]
+print(current_token,":", balance ,"->", next_token, ":" ,max_trade)
 
 balance = max_trade
 max_trade = 0
@@ -67,8 +90,7 @@ if pair_change[0] == current_token:
 elif pair_change[1] == current_token:
     liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
     next_token = pair_change[0]
-
-
+print(current_token,":", balance ,"->", next_token, ":" ,max_trade)
 balance = max_trade
 max_trade = 0
 last_token = current_token
@@ -90,27 +112,5 @@ if pair_change[0] == current_token:
 elif pair_change[1] == current_token:
     liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
     next_token = pair_change[0]
-
-balance = max_trade
-max_trade = 0
-last_token = current_token
-current_token = next_token
-for pair in liquidity:
-    if (current_token == pair[0]) and (last_token!=pair[1]) :
-        amount_out = get_amount_out(balance, liquidity[pair][0], liquidity[pair][1])
-        if amount_out > max_trade:
-            max_trade = amount_out
-            pair_change = pair
-    elif (next_token == pair[1]) and (last_token!=pair[0]):
-        amount_out = get_amount_out(balance, liquidity[pair][1], liquidity[pair][0])
-        if amount_out > max_trade:
-            max_trade = amount_out
-            pair_change = pair
-if pair_change[0] == current_token:
-    liquidity[pair_change] = (liquidity[pair_change][0] + balance, liquidity[pair_change][1] - max_trade)
-    next_token = pair_change[1]
-elif pair_change[1] == current_token:
-    liquidity[pair_change] = (liquidity[pair_change][0] - max_trade, liquidity[pair_change][1] + balance)
-    next_token = pair_change[0]
-    
-print("path: tokenB->tokenA->tokenD->tokenC->tokenB, tokenB balance=20.129889")
+print(current_token,":", balance ,"->", next_token, ":" ,max_trade)    
+print("path: tokenB->tokenA->tokenD->tokenC->tokenB, tokenB balance=20.129888944077443")
